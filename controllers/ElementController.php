@@ -17,7 +17,7 @@ class ElementController extends Controller {
     public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'add' => ['post'],
                     'remove' => ['post'],

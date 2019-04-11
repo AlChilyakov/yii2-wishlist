@@ -74,12 +74,12 @@ class WishlistButton extends \yii\base\Widget {
             'data-action' => 'add',
             'data-in-list-css-class' => $this->cssClassInList,
             'data-item-id' => $model->id,
-            'data-model' => $model::class,
+            'data-model' => get_class($model),
             'title' => $this->anchorTitleUnactive,
             'data-type-wish' => $this->type,
         ];
         $conditions = [
-            'model' => $model::class,
+            'model' => get_class($model),
             'item_id' => $model->id,
             'type_wish' => $this->type,
         ];

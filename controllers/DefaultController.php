@@ -18,7 +18,7 @@ class DefaultController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'remove' => ['post'],
                 ],
