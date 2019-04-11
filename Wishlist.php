@@ -1,18 +1,18 @@
 <?php
-namespace kriptograf\wishlist;
+
+namespace alchilyakov\wishlist;
 
 use Yii;
 use yii\base\Component;
 use yii\helpers\Html;
 
-class Wishlist extends Component
-{
+class Wishlist extends Component {
+
     /**
      * Список сущностей сохраненных в избранном
      * @return [type] [description]
      */
-    public function getUserWishList($type_wish=0)
-    {
+    public function getUserWishList($type_wish = 0) {
         $list = [];
 
         /**
@@ -20,30 +20,24 @@ class Wishlist extends Component
          * и получить данные избранного по токену
          * @var [type]
          */
-        if(Yii::$app->user->isGuest)
-        {
+        if (Yii::$app->user->isGuest) {
             $uwlToken = Yii::$app->request->cookies->getValue('uwl_token', null);
-            $uwls = \kriptograf\wishlist\models\Wishlist::findAll(['token' => $uwlToken,'type_wish' => $type_wish]);
-        }
-        else
-        {
+            $uwls = \alchilyakov\wishlist\models\Wishlist::findAll(['token' => $uwlToken, 'type_wish' => $type_wish]);
+        } else {
             /**
              * Получить данные по идентификатору пользователя
              * @var [type]
              */
-            $uwls = \kriptograf\wishlist\models\Wishlist::findAll(['user_id' => \Yii::$app->user->id,'type_wish' => $type_wish]);
+            $uwls = \alchilyakov\wishlist\models\Wishlist::findAll(['user_id' => \Yii::$app->user->id, 'type_wish' => $type_wish]);
         }
 
-        foreach ( $uwls as $key => $uwl ) {
-                $list[$key]['model_name'] = $uwl->model;
-                $list[$key]['model'] = $this->findModel($uwl->model, $uwl->item_id);
-
-
+        foreach ($uwls as $key => $uwl) {
+            $list[$key]['model_name'] = $uwl->model;
+            $list[$key]['model'] = $this->findModel($uwl->model, $uwl->item_id);
         }
 
         return $list;
     }
-
 
     /**
      * [findModel description]
@@ -52,13 +46,14 @@ class Wishlist extends Component
      * @param $type_wish
      * @return mixed [type]        [description]
      */
-    private function findModel($model, $id)
-    {
-        $model = '\\'.$model;
-        if (class_exists($model)){
+    private function findModel($model, $id) {
+        $model = '\\' . $model;
+        
+        if (class_exists($model)) {
             $model = new $model();
             return $model::findOne($id);
         }
+        
         return null;
     }
 
@@ -68,29 +63,25 @@ class Wishlist extends Component
      * @param  [type] $id    [description]
      * @return [type]        [description]
      */
-    private function findModelByType($model, $id,$type_wish=0)
-    {
-        $model = '\\'.$model;
+    private function findModelByType($model, $id, $type_wish = 0) {
+        $model = '\\' . $model;
         $model = new $model();
-        return $model::find()->where(['id'=>$id,'type_wish'=>$type_wish])->one();
+        
+        return $model::find()->where(['id' => $id, 'type_wish' => $type_wish])->one();
     }
 
     /**
      * Получить количество записей в избранном
      * @return [type] Если записей нет вернуть null иначе венуть количестов записей
      */
-    public function getUserWishlistAmount()
-    {
-        if(Yii::$app->user->isGuest)
-        {
+    public function getUserWishlistAmount() {
+        if (Yii::$app->user->isGuest) {
             $uwlToken = Yii::$app->request->cookies->getValue('uwl_token', null);
-            $count = \kriptograf\wishlist\models\Wishlist::find()->where(['token' => $uwlToken])->count();
-            return Html::tag('i', ($count)?$count:null, ['id'=>'count-wishlist-badge']);
+            $count = \alchilyakov\wishlist\models\Wishlist::find()->where(['token' => $uwlToken])->count();
+        } else {
+            $count = \alchilyakov\wishlist\models\Wishlist::find()->where(['user_id' => \Yii::$app->user->id])->count();
         }
-        else
-        {
-            $count = \kriptograf\wishlist\models\Wishlist::find()->where(['user_id' => \Yii::$app->user->id])->count();
-            return Html::tag('i', ($count)?$count:null, ['id'=>'count-wishlist-badge']);
-        }
+        return Html::tag('i', ($count) ? $count : null, ['id' => 'count-wishlist-badge']);
     }
+
 }

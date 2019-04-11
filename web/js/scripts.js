@@ -1,21 +1,23 @@
 $(function () {
     wishlist = {
         anchor:[],
-        addElement: function (model, itemId, url, button) {
+        addElement: function (model, itemId, typeWish, url, button) {
             $.post({
                 url: url,
-                data: { model: model, itemId: itemId},
+                data: { model: model, itemId: itemId, typeWish: typeWish},
                 beforeSend: function () {
                     $(button).data('action', 'wait').attr('data-action', 'wait');
                 },
                 success: function (response) {
                     if (response) {
+                        modelName = model.replace( /.+\\/g, "" );
+                        var anchor = wishlist[modelName + "_" + typeWish];
                         $(button).data('action', 'remove').attr('data-action', 'remove');
                         $(button).data('url', response.url).attr('data-url', response.url);
                         inListCssClass = $(button).data('in-list-css-class');
                         $(button).addClass(inListCssClass);
-                        $(button).attr('title', wishlist.anchor.activeTitle);
-                        $(button).html(wishlist.anchor.active);
+                        $(button).attr('title', anchor.activeTitle);
+                        $(button).html(anchor.active);
                         $('#count-wishlist-badge').text(response.count);
                         return true;
                     } else {
@@ -29,21 +31,23 @@ $(function () {
                 return false;
             });
         },
-        removeElement: function (model, itemId, url, button) {
+        removeElement: function (model, itemId, typeWish, url, button) {
             $.post({
                 url: url,
-                data: { model: model, itemId: itemId},
+                data: { model: model, itemId: itemId, typeWish: typeWish},
                 beforeSend: function () {
                     $(button).data('action', 'wait').attr('data-action', 'wait');
                 },
                 success: function (response) {
                     if (response) {
+                        modelName = model.replace( /.+\\/g, "" );
+                        var anchor = wishlist[modelName + "_" + typeWish];
                         $(button).data('action', 'add').attr('data-action', 'add');
                         $(button).data('url', response.url).attr('data-url', response.url);
                         inListCssClass = $(button).data('in-list-css-class');
                         $(button).removeClass(inListCssClass);
-                        $(button).attr('title', wishlist.anchor.unactiveTitle);
-                        $(button).html(wishlist.anchor.unactive);
+                        $(button).attr('title', anchor.unactiveTitle);
+                        $(button).html(anchor.unactive);
                         $('#count-wishlist-badge').text(response.count);
                         return true;
                     } else {
@@ -65,11 +69,12 @@ $(function () {
             itemId = $(self).data('item-id'),
             action = $(self).data('action'),
             url = $(self).data('url');
+            typeWish = $(self).data('type-wish');
 
         if (action === 'add') {
-            wishlist.addElement(model, itemId, url, self);
+            wishlist.addElement(model, itemId, typeWish, url, self);
         } else if (action === 'remove') {
-            wishlist.removeElement(model, itemId, url, self);
+            wishlist.removeElement(model, itemId, typeWish, url, self);
         }
     });
 

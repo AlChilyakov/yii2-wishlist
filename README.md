@@ -3,33 +3,30 @@ Yii2-wishlist
 
 Модуль избранного для Yii2 фреймворка. ДЛЯ любых ПОЛЬЗОВАТЕЛЕЙ
 
-основан на kriptograf/yii2-wishlist
+основан на samwolf1982/yii2-wishlist
 
 добавлено полее type_wish-int def=0
  
  для типа лайка например лайки и сравнения 
- 
-пример использование  http://www.dominanta-d.com/
-
 
 Установка
 ---------------------------------
 Выполнить команду
 
 ```
-composer require samwolf1982/yii2-wishlist
+composer require alchilyakov/yii2-wishlist
 ```
 
 Либо в composer.json строку:
 
 ```
-"samwolf1982/yii2-wishlist": "dev-master",
+"alchilyakov/yii2-wishlist": "dev-master",
 ```
 
 Далее, мигрируем базу:
 
 ```
-php yii migrate --migrationPath=vendor/samwolf1982/yii2-wishlist/migrations
+php yii migrate --migrationPath=vendor/alchilyakov/yii2-wishlist/migrations
 ```
 
 Подключение и настройка
@@ -39,7 +36,7 @@ php yii migrate --migrationPath=vendor/samwolf1982/yii2-wishlist/migrations
 ```php
     'modules' => [
         'wishlist' => [
-            'class' => 'kriptograf\wishlist\Module',
+            'class' => 'alchilyakov\wishlist\Module',
             'dbDateExpired' => 'CURDATE() + INTERVAL 7 DAY', //дата истечения срока действия избранного в БД
             'cokieDateExpired' => time() + 86400 * 365, //Время жизни куки с токеном
         ],
@@ -48,7 +45,7 @@ php yii migrate --migrationPath=vendor/samwolf1982/yii2-wishlist/migrations
 
     'components' => [
         'wishlist' => [
-            'class' => 'kriptograf\wishlist\Wishlist'
+            'class' => 'alchilyakov\wishlist\Wishlist'
         ],
         //...
     ],
@@ -78,7 +75,7 @@ add if present class
 ```php
 
 <?php
-use kriptograf\wishlist\widgets\WishlistButton;
+use alchilyakov\wishlist\widgets\WishlistButton;
 ?>
 
 <?php /* Выведет кнопку "добавить в избранное" */ ?>

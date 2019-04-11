@@ -1,10 +1,10 @@
 <?php
 
-namespace kriptograf\wishlist\controllers;
+namespace alchilyakov\wishlist\controllers;
 
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use kriptograf\wishlist\models\Wishlist;
+use alchilyakov\wishlist\models\Wishlist;
 
 
 
@@ -18,7 +18,7 @@ class DefaultController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'remove' => ['post'],
                 ],

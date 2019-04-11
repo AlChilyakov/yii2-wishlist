@@ -1,6 +1,6 @@
 <?php
 
-namespace kriptograf\wishlist;
+namespace alchilyakov\wishlist;
 
 use yii\db\Expression;
 

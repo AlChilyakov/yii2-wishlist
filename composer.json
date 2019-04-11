@@ -1,22 +1,22 @@
 {
-    "name": "samwolf1982/yii2-wishlist",
+    "name": "alchilyakov/yii2-wishlist",
     "description": "Кнопка добавить в избранное plus extend model",
     "keywords": ["yii2", "yii2", "application"],
-    "homepage": "https://github.com/samwolf1982",
+    "homepage": "https://github.com/alchilyakov",
     "type": "yii2-extension",
     "license": "BSD-3-Clause",
     "support": {
-        "source": "https://github.com/samwolf1982/yii2-wishlist"
+        "source": "https://github.com/alchilyakov/yii2-wishlist"
     },
     "authors": [
         {
-            "name": "Sam Biryukow",
-            "email": "biryukwolf@yahoo.com"
+            "name": "Alexander Chilyakov",
+            "email": "alchilyakov@gmail.com"
         }
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.0",
         "yiisoft/yii2": "*",
         "yiisoft/yii2-bootstrap": "*"
     },
@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-4": {
-            "kriptograf\\wishlist\\": ""
+            "alchilyakov\\wishlist\\": ""
         }
     },
     "extra": {

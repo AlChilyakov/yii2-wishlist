@@ -7,8 +7,6 @@ class m160518_074611_wishlist extends Migration
 {
     public function safeUp()
     {
-        $tableOptions = 'ENGINE=InnoDB';
-
         $this->createTable(
             '{{%wishlist}}',
             [
@@ -19,8 +17,7 @@ class m160518_074611_wishlist extends Migration
                 'model' => $this->string(255)->notNull(),
                 'item_id' => $this->integer(11)->notNull(),
                 'type_wish' => $this->integer(11)->defaultValue(0),
-                ],
-            $tableOptions
+                ]
         );
 
     }
